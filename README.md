@@ -9,6 +9,11 @@
 
 - NestJS
 - GraphQL
+- Prisma
+
+### DB
+
+PostgreSQL
 
 ### Other
 
