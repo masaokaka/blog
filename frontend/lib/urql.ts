@@ -1,11 +1,12 @@
 import { initUrqlClient } from 'next-urql';
 import type { Client, ClientOptions } from 'urql';
+import { cacheExchange, debugExchange, fetchExchange } from 'urql';
 
 const GRAPHQL_ENDPOINT = process.env.GRAPHQL_ENDPOINT!;
 
 export const urqlClientOptions: ClientOptions = {
   url: GRAPHQL_ENDPOINT,
-  exchanges: [],
+  exchanges: [debugExchange, cacheExchange, fetchExchange],
 };
 
 export function urqlClient(): Promise<Client> {
