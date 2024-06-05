@@ -13,7 +13,7 @@
 
 ### DB
 
-PostgreSQL
+- PostgreSQL
 
 ### Other
 
