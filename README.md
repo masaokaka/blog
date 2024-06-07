@@ -17,5 +17,5 @@
 
 ### Other
 
-- Node.js v22.2.0
-- nodenv v1.5.0
+- Node.js v20.14.0(npm v10.7.0)
+- nvm v0.39.7
