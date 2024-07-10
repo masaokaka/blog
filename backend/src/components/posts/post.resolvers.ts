@@ -1,30 +1,26 @@
-import { ConfigService } from '@nestjs/config';
-import { Query, Resolver } from '@nestjs/graphql';
-import { BlogEnv } from 'src/config/environments/blog-env.service';
-import { PostModel } from './interfaces/post.model';
+import { GetPostsArgs } from '@blog-components/posts/interfaces/get-post-connection.args';
+import { PostModel } from '@blog-components/posts/interfaces/post.model';
+import { Args, Query, Resolver } from '@nestjs/graphql';
+import { PrismaService } from 'nestjs-prisma';
 
-@Resolver(() => PostModel)
-export class PostsResolver {
+@Resolver((_of: any) => PostModel)
+export class PostResolver {
   constructor(
-    private configService: ConfigService,
-    private blogEnv: BlogEnv,
+    // private configService: ConfigService,
+    // private readonly blogEnv: BlogEnv,
+    private readonly prisma: PrismaService,
   ) {}
 
   @Query(() => [PostModel], { name: 'posts', nullable: true })
-  async getPosts() {
-    return [
-      {
-        id: '1',
-        title: 'NestJS is so good.',
+  async getPosts(@Args() args: GetPostsArgs) {
+    return this.prisma.post.findMany({
+      where: {
+        type: args.type ? { in: args.type } : undefined,
+        published: true,
       },
-      {
-        id: '2',
-        title: 'GraphQL is so good.',
+      orderBy: {
+        publishDate: 'desc',
       },
-    ];
-  }
-  @Query(() => String)
-  getDBURL(): string {
-    return this.blogEnv.DatabaseUrl;
+    });
   }
 }

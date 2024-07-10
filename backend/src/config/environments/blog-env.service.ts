@@ -1,7 +1,7 @@
 import { ApolloDriverConfig } from '@nestjs/apollo';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import path from 'path';
+import { join } from 'path';
 import { EnvValidator } from 'src/config/environments/env-validator';
 
 /**
@@ -17,10 +17,7 @@ export class BlogEnv {
 
   get GqlModuleOptionsFactory(): ApolloDriverConfig {
     const devOptions: ApolloDriverConfig = {
-      autoSchemaFile: path.join(
-        process.cwd(),
-        'src/generated/graphql/schema.gql',
-      ),
+      autoSchemaFile: join(process.cwd(), 'src/generated/graphql/schema.gql'),
       sortSchema: true,
       playground: true,
     };

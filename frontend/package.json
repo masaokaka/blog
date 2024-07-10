@@ -13,7 +13,8 @@
     "fix:eslint": "npm run lint:eslint -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "graphql": "^16.8.1",
@@ -26,6 +27,9 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
+    "@graphql-codegen/cli": "5.0.2",
+    "@graphql-codegen/typescript-operations": "^4.2.1",
+    "@graphql-codegen/typescript-urql": "^4.0.0",
     "@storybook/addon-essentials": "^8.1.5",
     "@storybook/addon-interactions": "^8.1.5",
     "@storybook/addon-links": "^8.1.5",
@@ -50,6 +54,7 @@
     "prettier-plugin-organize-imports": "^3.2.4",
     "storybook": "^8.1.5",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@graphql-codegen/client-preset": "4.2.6"
   }
 }

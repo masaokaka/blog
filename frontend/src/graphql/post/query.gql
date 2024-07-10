@@ -1,0 +1,8 @@
+query PostIndexPage($type: [String!]) {
+  posts(type: $type) {
+    id
+    title
+    type
+    publishDate
+  }
+}

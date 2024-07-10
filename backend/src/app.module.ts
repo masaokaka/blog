@@ -1,24 +1,25 @@
+import { BlogEnv } from '@blog-config/environments/blog-env.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { join } from 'path';
-import { BlogEnvModule } from 'src/config/environments/blog-env.moduel';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PostsModule } from './components/posts/posts.module';
+import { PrismaModule } from 'nestjs-prisma';
+import { BlogEnvModule } from 'src/config/environments/blog-env.module';
+import { PostModule } from './components/posts/post.module';
 
 @Module({
   imports: [
     BlogEnvModule,
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/generated/graphql/schema.gql'),
-      sortSchema: true,
-      playground: true,
+      inject: [BlogEnv],
+      useFactory: (env: BlogEnv) => env.GqlModuleOptionsFactory,
     }),
-    PostsModule,
+    PrismaModule.forRoot({
+      isGlobal: true,
+    }),
+    PostModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

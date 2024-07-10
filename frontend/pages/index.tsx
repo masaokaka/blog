@@ -1,21 +1,24 @@
 import { urqlClient } from '@/lib/urql';
+import { PostIndexPageDocument } from '@/src/graphql/generated/types';
 import type { GetStaticProps, NextPage } from 'next';
 // import { Inter } from 'next/font/google';
-import { gql } from 'urql';
 
 // const inter = Inter({ subsets: ['latin'] });
 
 type Props = {
-  posts: { id: string; title: string }[];
+  posts: { id: string; title: string; type: string }[];
 };
 
 export const Home: NextPage<Props> = ({ posts }) => {
+  console.log(posts);
   return (
     <main>
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
-            id: {post.id} title: {post.title}
+            <p>id: {post.id}</p>
+            <p>title: {post.title}</p>
+            <p>type:{post.type}</p>
           </li>
         ))}
       </ul>
@@ -26,18 +29,14 @@ export const Home: NextPage<Props> = ({ posts }) => {
 export const getStaticProps = (async () => {
   try {
     const client = await urqlClient();
-    const POSTS_QUERY = gql`
-      query Example {
-        posts {
-          id
-          title
-        }
-      }
-    `;
-    const result = await client.query(POSTS_QUERY, {}).toPromise();
+    const result = await client
+      .query(PostIndexPageDocument, {
+        type: 'article',
+      })
+      .toPromise();
     return {
       props: {
-        posts: result.data.posts,
+        posts: result.data?.posts,
       },
     };
   } catch (e) {
