@@ -1,21 +1,17 @@
 import { urqlClient } from '@/lib/urql';
 import { PostIndexPageDocument } from '@/src/graphql/generated/types';
 import type { GetStaticProps, NextPage } from 'next';
-// import { Inter } from 'next/font/google';
-
-// const inter = Inter({ subsets: ['latin'] });
 
 type Props = {
   posts: { id: string; title: string; type: string }[];
 };
 
 export const Home: NextPage<Props> = ({ posts }) => {
-  console.log(posts);
   return (
     <main>
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>
+          <li key={post.type}>
             <p>id: {post.id}</p>
             <p>title: {post.title}</p>
             <p>type:{post.type}</p>
@@ -40,10 +36,10 @@ export const getStaticProps = (async () => {
       },
     };
   } catch (e) {
-    console.log(e);
-    return {
-      notFound: true,
-    };
+    if (e instanceof Error) {
+      return { props: { error: e.message } };
+    }
+    throw e;
   }
 }) satisfies GetStaticProps;
 
