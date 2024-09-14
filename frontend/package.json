@@ -17,6 +17,8 @@
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.8",
+    "@heroicons/react": "^2.1.5",
     "graphql": "^16.8.1",
     "next": "14.2.3",
     "next-urql": "^5.0.2",
