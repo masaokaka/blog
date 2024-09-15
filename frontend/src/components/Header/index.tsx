@@ -10,7 +10,7 @@ const Header = () => {
       {/* アイコン */}
       <div className="mr-auto">
         <Link href="/">
-          <Image src="/images/vercel.svg" alt="icon" width={100} height={100} />
+          <Image src="/images/openai.svg" alt="icon" width={40} height={40} />
         </Link>
       </div>
       {/* ナビゲーション */}
