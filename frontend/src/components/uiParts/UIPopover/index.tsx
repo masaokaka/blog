@@ -11,7 +11,6 @@ type Props = {
 
 export const UIPopover = ({ text, options }: Props): JSX.Element => {
   const { query } = useRouter();
-  console.log(query.category, options);
   return (
     <Popover>
       {({ open, close }) => (

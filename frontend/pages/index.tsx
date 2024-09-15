@@ -1,4 +1,5 @@
 import { urqlClient } from '@/lib/urql';
+import { UICard } from '@/src/components/uiParts/UICard';
 import { PostIndexPageDocument } from '@/src/graphql/generated/types';
 import type { GetStaticProps, NextPage } from 'next';
 
@@ -6,12 +7,13 @@ type Props = {
   posts: { id: string; title: string; type: string }[];
 };
 
-export const Home: NextPage<Props> = ({ posts }) => {
+const Home: NextPage<Props> = ({ posts }) => {
   return (
     <main>
       <ul>
         {posts.map((post) => (
           <li key={post.type}>
+            <UICard />
             <p>id: {post.id}</p>
             <p>title: {post.title}</p>
             <p>type:{post.type}</p>
