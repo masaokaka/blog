@@ -84,7 +84,8 @@ const postData: Post[] = [
     emoji: '✅',
     excerpt: '本を書いています',
     md5Hash: '5ce6822c5efacf579f1b7f46187451e73',
-    title: '気持ちを落ち着かせる呼吸法',
+    title:
+      '気持ちを落ち着かせる呼吸法気持ちを落ち着かせる呼吸法気持ちを落ち着かせる呼吸法気持ちを落ち着かせる呼吸法気持ちを落ち着かせる呼吸法気持ちを落ち着かせる呼吸法気持ちを落ち着かせる呼吸法',
     thumbNailUrl: 'http://exaample.com/image1.png',
     type: 'article',
     publishDate: new Date('2022-01-31'),
@@ -143,8 +144,10 @@ const postData: Post[] = [
 const doSeed = async () => {
   const posts = [];
   for (const post of postData) {
-    const createPosts = prisma.post.create({
-      data: post,
+    const createPosts = prisma.post.upsert({
+      where: { id: post.id },
+      update: { ...post },
+      create: { ...post },
     });
     posts.push(createPosts);
   }
