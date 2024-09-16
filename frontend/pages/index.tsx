@@ -1,22 +1,37 @@
 import { urqlClient } from '@/lib/urql';
-import { UICard } from '@/src/components/uiParts/UICard';
+import { BlogCard } from '@/src/components/BlogCard';
+import type { PostModel } from '@/src/graphql/generated/types';
 import { PostIndexPageDocument } from '@/src/graphql/generated/types';
 import type { GetStaticProps, NextPage } from 'next';
 
 type Props = {
-  posts: { id: string; title: string; type: string }[];
+  posts: PostModel[];
 };
 
 const Home: NextPage<Props> = ({ posts }) => {
   return (
     <main>
-      <ul>
+      <h2 className="mb-4 px-4 text-2xl font-semibold">Recent</h2>
+      <ul className="flex flex-wrap justify-between">
         {posts.map((post) => (
-          <li key={post.type}>
-            <UICard />
-            <p>id: {post.id}</p>
-            <p>title: {post.title}</p>
-            <p>type:{post.type}</p>
+          <li key={post.id} className="w-full px-0 py-4 md:w-1/2 md:p-4">
+            <BlogCard
+              imgPath="/images/sunset_beach.jpg"
+              title={post.title}
+              category="Tech"
+              datetime={post.publishDate.split('T')[0].replaceAll('-', '.')}
+              tags={[
+                'travel',
+                'fun',
+                'blog',
+                'travel',
+                'fun',
+                'blog',
+                'travel',
+                'fun',
+                'blog',
+              ]}
+            />
           </li>
         ))}
       </ul>
