@@ -2,7 +2,7 @@ import type { PropsWithChildren } from 'react';
 import Header from '../Header';
 
 const Container = ({ children }: PropsWithChildren) => (
-  <div className="mx-auto p-6 md:max-w-4xl md:py-4">{children}</div>
+  <main className="mx-auto p-6 md:max-w-6xl md:py-4">{children}</main>
 );
 
 const Layout = ({ children }: PropsWithChildren) => {
