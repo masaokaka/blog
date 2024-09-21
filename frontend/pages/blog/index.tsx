@@ -14,7 +14,10 @@ const Blog: NextPage<Props> = ({ posts }) => {
       <h2 className="mb-4 px-4 text-2xl font-semibold">Recent</h2>
       <ul className="flex flex-wrap justify-between">
         {posts.map((post) => (
-          <li key={post.id} className="w-full px-0 py-4 md:w-1/3 md:p-4">
+          <li
+            key={post.id}
+            className="w-full px-0 py-4 md:w-1/2 md:p-4 xl:w-1/3"
+          >
             <BlogCard
               imgPath="/images/sample.jpeg"
               title={post.title}
