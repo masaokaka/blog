@@ -31,11 +31,12 @@ const Header = () => {
       </Link>
       {/* PCナビゲーション */}
       <nav className="hidden md:block">
-        <ul className="flex items-center">
+        <ul className="flex items-center font-bold">
           <li>
             <UIPopover
-              text="Categories"
+              text="Blog"
               options={[
+                { text: 'All', path: '/blog' },
                 { text: 'Tech', path: '/blog/tech' },
                 { text: 'Stock', path: '/blog/stock' },
                 { text: 'Life', path: '/blog/life' },
@@ -116,12 +117,12 @@ const Header = () => {
                 : 'opacity-0 duration-300',
             )}
           >
-            <ul className="flex flex-col gap-4 p-10 text-2xl">
+            <ul className="flex flex-col gap-4 p-10 text-2xl font-bold">
               <li>
                 <Disclosure>
                   <div className="flex w-full items-center justify-between">
-                    <Link href="/blog/category" onClick={handleMenuClose}>
-                      Categories
+                    <Link href="/blog" onClick={handleMenuClose}>
+                      Blog
                     </Link>
                     <DisclosureButton className="group">
                       <PlusIcon className="size-8 group-data-[menuOpen]:hidden" />

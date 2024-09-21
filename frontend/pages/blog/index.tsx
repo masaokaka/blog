@@ -11,7 +11,7 @@ type Props = {
 const Blog: NextPage<Props> = ({ posts }) => {
   return (
     <div>
-      <h2 className="mb-4 px-4 text-2xl font-semibold">Recent</h2>
+      <h2 className="mb-4 px-4 text-2xl font-semibold">Blog</h2>
       <ul className="flex flex-wrap justify-between">
         {posts.map((post) => (
           <li
