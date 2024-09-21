@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const UIPopover = ({ text, options }: Props): JSX.Element => {
-  const { query } = useRouter();
+  const { asPath } = useRouter();
   return (
     <Popover>
       {({ open, close }) => (
@@ -29,7 +29,7 @@ export const UIPopover = ({ text, options }: Props): JSX.Element => {
           >
             <div className="p-2">
               {options.map(({ path, text }) => {
-                const isCurrentPage = `/${query.category}` === path;
+                const isCurrentPage = `${asPath}` === path;
                 return (
                   <Link
                     key={path}
