@@ -11,7 +11,7 @@ export class PostResolver {
     private readonly prisma: PrismaService,
   ) {}
 
-  @Query(() => [PostModel], { name: 'posts', nullable: true })
+  @Query(() => [PostModel], { name: 'posts' })
   async getPosts(@Args() args: GetPostsArgs) {
     return this.prisma.post.findMany({
       where: {
