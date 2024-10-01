@@ -32,7 +32,7 @@ const Header = () => {
       {/* PCナビゲーション */}
       <nav className="hidden md:block">
         <ul className="flex items-center font-bold">
-          <li>
+          <li className="relative">
             <UIPopover
               text="Blog"
               options={[
@@ -42,21 +42,33 @@ const Header = () => {
                 { text: 'Life', path: '/blog/life' },
               ]}
             />
+            {pathname.includes('/blog') && (
+              <div className="absolute inset-x-0 top-5 flex justify-center font-extrabold">
+                <span>・</span>
+              </div>
+            )}
           </li>
-          {pathname !== '/about' && (
-            <li className="ml-10">
-              <Link href="/about" className="hover:text-black/50">
-                About me
-              </Link>
-            </li>
-          )}
-          {pathname !== '/contact' && (
-            <li className="ml-10">
-              <Link href="/contact" className="hover:text-black/50">
-                Contact
-              </Link>
-            </li>
-          )}
+          <li className="relative ml-10">
+            <Link href="/about" className="hover:text-black/50">
+              About me
+            </Link>
+            {pathname === '/about' && (
+              <div className="absolute inset-x-0 top-5 flex justify-center font-extrabold">
+                <span>・</span>
+              </div>
+            )}
+          </li>
+
+          <li className="relative ml-10">
+            <Link href="/contact" className="hover:text-black/50">
+              Contact
+            </Link>
+            {pathname === '/contact' && (
+              <div className="absolute inset-x-0 top-5 flex justify-center font-extrabold">
+                <span>・</span>
+              </div>
+            )}
+          </li>
         </ul>
       </nav>
       {/* モバイルナビゲーション */}

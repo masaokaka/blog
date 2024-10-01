@@ -12,7 +12,7 @@ const Blog: NextPage<Props> = ({ posts }) => {
   return (
     <div>
       <h2 className="mb-4 px-4 text-2xl font-semibold">Blog</h2>
-      <ul className="flex flex-wrap justify-between">
+      <ul className="flex flex-wrap">
         {posts.map((post) => (
           <li
             key={post.id}
