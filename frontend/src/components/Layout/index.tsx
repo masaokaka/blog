@@ -1,5 +1,6 @@
+import Footer from '@/src/components/Footer';
+import Header from '@/src/components/Header';
 import type { PropsWithChildren } from 'react';
-import Header from '../Header';
 
 const Container = ({ children }: PropsWithChildren) => (
   <main className="mx-auto p-6 md:py-4 lg:max-w-5xl xl:max-w-6xl">
@@ -12,6 +13,7 @@ const Layout = ({ children }: PropsWithChildren) => {
     <>
       <Header />
       <Container>{children}</Container>
+      <Footer />
     </>
   );
 };
