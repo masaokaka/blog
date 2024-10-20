@@ -30,35 +30,44 @@ export type PostModel = {
   title: Scalars['String']['output'];
 };
 
+export type PostResponse = {
+  __typename?: 'PostResponse';
+  posts: Array<PostModel>;
+  totalCount: Scalars['Int']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
-  posts: Array<PostModel>;
+  getPosts: PostResponse;
 };
 
 
-export type QueryPostsArgs = {
+export type QueryGetPostsArgs = {
   category?: InputMaybe<Array<Scalars['String']['input']>>;
   page?: InputMaybe<Scalars['Int']['input']>;
   postsPerPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type PostIndexPageQueryVariables = Exact<{
+export type GetPostsQueryVariables = Exact<{
   category?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
   page?: InputMaybe<Scalars['Int']['input']>;
   postsPerPage?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type PostIndexPageQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'PostModel', id: string, title: string, category: string, publishDate?: any | null }> };
+export type GetPostsQuery = { __typename?: 'Query', getPosts: { __typename?: 'PostResponse', totalCount: number, posts: Array<{ __typename?: 'PostModel', id: string, title: string, category: string, publishDate?: any | null }> } };
 
 
-export const PostIndexPageDocument = gql`
-    query PostIndexPage($category: [String!], $page: Int, $postsPerPage: Int) {
-  posts(category: $category, page: $page, postsPerPage: $postsPerPage) {
-    id
-    title
-    category
-    publishDate
+export const GetPostsDocument = gql`
+    query GetPosts($category: [String!], $page: Int, $postsPerPage: Int) {
+  getPosts(category: $category, page: $page, postsPerPage: $postsPerPage) {
+    totalCount
+    posts {
+      id
+      title
+      category
+      publishDate
+    }
   }
 }
     `;

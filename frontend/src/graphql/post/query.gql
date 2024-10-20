@@ -1,8 +1,11 @@
-query PostIndexPage($category: [String!], $page: Int, $postsPerPage: Int) {
-  posts(category: $category, page: $page, postsPerPage: $postsPerPage) {
-    id
-    title
-    category
-    publishDate
+query GetPosts($category: [String!], $page: Int, $postsPerPage: Int) {
+  getPosts(category: $category, page: $page, postsPerPage: $postsPerPage) {
+    totalCount
+    posts {
+      id
+      title
+      category
+      publishDate
+    }
   }
 }

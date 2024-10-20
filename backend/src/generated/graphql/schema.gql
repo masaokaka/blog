@@ -19,6 +19,11 @@ type PostModel {
   title: String!
 }
 
+type PostResponse {
+  posts: [PostModel!]!
+  totalCount: Int!
+}
+
 type Query {
-  posts(category: [String!], page: Int, postsPerPage: Int): [PostModel!]!
+  getPosts(category: [String!], page: Int, postsPerPage: Int): PostResponse!
 }

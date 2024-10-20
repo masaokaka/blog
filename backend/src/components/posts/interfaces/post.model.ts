@@ -1,4 +1,10 @@
-import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
+import {
+  Field,
+  GraphQLISODateTime,
+  ID,
+  Int,
+  ObjectType,
+} from '@nestjs/graphql';
 
 @ObjectType()
 export class PostModel {
@@ -28,4 +34,12 @@ export class PostModel {
 
   @Field(() => GraphQLISODateTime, { nullable: true })
   publishDate?: Date;
+}
+
+@ObjectType()
+export class PostResponse {
+  @Field(() => Int)
+  totalCount: number;
+  @Field(() => [PostModel])
+  posts: [PostModel];
 }

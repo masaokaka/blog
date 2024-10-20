@@ -2,11 +2,11 @@ import { urqlClient } from '@/lib/urql';
 import { BlogCard } from '@/src/components/BlogCard';
 import Pagination from '@/src/components/Pagination';
 import type {
-  PostIndexPageQuery,
-  PostIndexPageQueryVariables,
+  GetPostsQuery,
+  GetPostsQueryVariables,
   PostModel,
 } from '@/src/graphql/generated/types';
-import { PostIndexPageDocument } from '@/src/graphql/generated/types';
+import { GetPostsDocument } from '@/src/graphql/generated/types';
 import isPositiveInteger from '@/utils/isPositiveInteger';
 import type { GetServerSideProps, NextPage } from 'next';
 
@@ -29,7 +29,7 @@ const Blog: NextPage<Props> = ({ posts, currentPage, totalPage }) => {
             <BlogCard
               imgPath="/images/sample.jpeg"
               title={post.title}
-              category="Tech"
+              category={post.category.toUpperCase()}
               datetime={post.publishDate.split('T')[0].replaceAll('-', '.')}
               tags={[
                 'travel',
@@ -71,19 +71,27 @@ export const getServerSideProps = (async (context) => {
   try {
     const client = await urqlClient();
     const result = await client
-      .query<PostIndexPageQuery, PostIndexPageQueryVariables>(
-        PostIndexPageDocument,
-        {
-          page: currentPage,
-          postsPerPage,
-        },
-      )
+      .query<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, {
+        // category: "article",
+        page: currentPage,
+        postsPerPage,
+      })
       .toPromise();
+    if (!result.data) {
+      return {
+        notFound: true,
+      };
+    }
+    const { totalCount, posts } = result.data.getPosts;
+    const totalPage =
+      totalCount % postsPerPage !== 0
+        ? totalCount / postsPerPage + 1
+        : totalCount / postsPerPage;
     return {
       props: {
-        posts: result.data?.posts,
+        posts,
         currentPage,
-        totalPage: 26,
+        totalPage,
       },
     };
   } catch (e) {
