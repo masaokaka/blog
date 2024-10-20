@@ -17,7 +17,7 @@ model Post {
   id           String    @id @default(uuid())
   title        String
   emoji        String?
-  type         String
+  category     String
   thumbNailUrl String?   @map("thumb_nail_url")
   excerpt      String?
   contentPath  String    @unique @map("content_path")

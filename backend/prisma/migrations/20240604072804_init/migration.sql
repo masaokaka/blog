@@ -3,7 +3,7 @@ CREATE TABLE "posts" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "emoji" TEXT,
-    "type" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
     "thumb_nail_url" TEXT,
     "excerpt" TEXT,
     "content_path" TEXT NOT NULL,

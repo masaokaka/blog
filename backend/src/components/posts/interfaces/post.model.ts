@@ -12,7 +12,7 @@ export class PostModel {
   emoji?: string;
 
   @Field(() => String)
-  type: string;
+  category: string;
 
   @Field(() => String, { nullable: true })
   thumbNailUrl: string;

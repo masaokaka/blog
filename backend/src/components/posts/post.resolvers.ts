@@ -13,14 +13,18 @@ export class PostResolver {
 
   @Query(() => [PostModel], { name: 'posts' })
   async getPosts(@Args() args: GetPostsArgs) {
-    return this.prisma.post.findMany({
+    console.log(args);
+    const data = await this.prisma.post.findMany({
       where: {
-        type: args.type ? { in: args.type } : undefined,
+        category: args.category ? { in: args.category } : undefined,
         published: true,
       },
       orderBy: {
         publishDate: 'desc',
       },
+      skip: (args.page - 1) * args.postsPerPage,
+      take: args.postsPerPage,
     });
+    return data;
   }
 }

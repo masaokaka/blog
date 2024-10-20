@@ -1,8 +1,8 @@
-query PostIndexPage($type: [String!]) {
-  posts(type: $type) {
+query PostIndexPage($category: [String!], $page: Int, $postsPerPage: Int) {
+  posts(category: $category, page: $page, postsPerPage: $postsPerPage) {
     id
     title
-    type
+    category
     publishDate
   }
 }

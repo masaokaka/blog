@@ -19,6 +19,7 @@ export type Scalars = {
 
 export type PostModel = {
   __typename?: 'PostModel';
+  category: Scalars['String']['output'];
   contentPath: Scalars['String']['output'];
   emoji?: Maybe<Scalars['String']['output']>;
   excerpt?: Maybe<Scalars['String']['output']>;
@@ -27,33 +28,36 @@ export type PostModel = {
   published?: Maybe<Scalars['Boolean']['output']>;
   thumbNailUrl?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
-  type: Scalars['String']['output'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  posts?: Maybe<Array<PostModel>>;
+  posts: Array<PostModel>;
 };
 
 
 export type QueryPostsArgs = {
-  type?: InputMaybe<Array<Scalars['String']['input']>>;
+  category?: InputMaybe<Array<Scalars['String']['input']>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  postsPerPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type PostIndexPageQueryVariables = Exact<{
-  type?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  category?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  postsPerPage?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type PostIndexPageQuery = { __typename?: 'Query', posts?: Array<{ __typename?: 'PostModel', id: string, title: string, type: string, publishDate?: any | null }> | null };
+export type PostIndexPageQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'PostModel', id: string, title: string, category: string, publishDate?: any | null }> };
 
 
 export const PostIndexPageDocument = gql`
-    query PostIndexPage($type: [String!]) {
-  posts(type: $type) {
+    query PostIndexPage($category: [String!], $page: Int, $postsPerPage: Int) {
+  posts(category: $category, page: $page, postsPerPage: $postsPerPage) {
     id
     title
-    type
+    category
     publishDate
   }
 }
