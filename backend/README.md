@@ -37,3 +37,7 @@ npx prisma migrate dev --name init
 ### seed
 
 npx prisma db seed
+
+### log into DB(in container)
+
+psql -h localhost -p 5432 -U root -d blog_db_dev
