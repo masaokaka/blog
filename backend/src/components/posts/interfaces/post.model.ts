@@ -39,7 +39,7 @@ export class PostModel {
 @ObjectType()
 export class PostResponse {
   @Field(() => Int)
-  totalCount: number;
+  totalPageCount: number;
   @Field(() => [PostModel])
   posts: [PostModel];
 }

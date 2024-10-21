@@ -32,7 +32,9 @@ export class PostResolver {
         },
       }),
     ]);
-    console.log({ posts: data[0], totalCount: data[1] });
-    return { posts: data[0], totalCount: data[1] };
+    return {
+      posts: data[0],
+      totalPageCount: Math.ceil(data[1] / args.postsPerPage),
+    };
   }
 }

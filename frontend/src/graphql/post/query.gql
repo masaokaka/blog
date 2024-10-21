@@ -1,6 +1,6 @@
 query GetPosts($category: [String!], $page: Int, $postsPerPage: Int) {
   getPosts(category: $category, page: $page, postsPerPage: $postsPerPage) {
-    totalCount
+    totalPageCount
     posts {
       id
       title

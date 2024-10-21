@@ -34,7 +34,7 @@ const Header = () => {
         <ul className="flex items-center font-bold">
           <li className="relative">
             <UIPopover
-              text="Blog"
+              text="Category"
               options={[
                 { text: 'All', path: '/blog' },
                 { text: 'Tech', path: '/blog/tech' },
@@ -134,7 +134,7 @@ const Header = () => {
                 <Disclosure>
                   <div className="flex w-full items-center justify-between">
                     <Link href="/blog" onClick={handleMenuClose}>
-                      Blog
+                      Category
                     </Link>
                     <DisclosureButton className="group">
                       <PlusIcon className="size-8 group-data-[menuOpen]:hidden" />

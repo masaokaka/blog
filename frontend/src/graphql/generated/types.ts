@@ -33,7 +33,7 @@ export type PostModel = {
 export type PostResponse = {
   __typename?: 'PostResponse';
   posts: Array<PostModel>;
-  totalCount: Scalars['Int']['output'];
+  totalPageCount: Scalars['Int']['output'];
 };
 
 export type Query = {
@@ -55,13 +55,13 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', getPosts: { __typename?: 'PostResponse', totalCount: number, posts: Array<{ __typename?: 'PostModel', id: string, title: string, category: string, publishDate?: any | null }> } };
+export type GetPostsQuery = { __typename?: 'Query', getPosts: { __typename?: 'PostResponse', totalPageCount: number, posts: Array<{ __typename?: 'PostModel', id: string, title: string, category: string, publishDate?: any | null }> } };
 
 
 export const GetPostsDocument = gql`
     query GetPosts($category: [String!], $page: Int, $postsPerPage: Int) {
   getPosts(category: $category, page: $page, postsPerPage: $postsPerPage) {
-    totalCount
+    totalPageCount
     posts {
       id
       title

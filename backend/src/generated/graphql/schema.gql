@@ -21,7 +21,7 @@ type PostModel {
 
 type PostResponse {
   posts: [PostModel!]!
-  totalCount: Int!
+  totalPageCount: Int!
 }
 
 type Query {
