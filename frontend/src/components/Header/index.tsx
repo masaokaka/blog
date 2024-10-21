@@ -36,7 +36,7 @@ const Header = () => {
             <UIPopover
               text="Category"
               options={[
-                { text: 'All', path: '/blog' },
+                { text: 'All', path: '/blog/all' },
                 { text: 'Tech', path: '/blog/tech' },
                 { text: 'Stock', path: '/blog/stock' },
                 { text: 'Life', path: '/blog/life' },
@@ -133,7 +133,7 @@ const Header = () => {
               <li>
                 <Disclosure>
                   <div className="flex w-full items-center justify-between">
-                    <Link href="/blog" onClick={handleMenuClose}>
+                    <Link href="/blog/all" onClick={handleMenuClose}>
                       Category
                     </Link>
                     <DisclosureButton className="group">
