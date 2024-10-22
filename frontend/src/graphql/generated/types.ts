@@ -55,7 +55,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', getPosts: { __typename?: 'PostResponse', totalPageCount: number, posts: Array<{ __typename?: 'PostModel', id: string, title: string, category: string, publishDate?: any | null }> } };
+export type GetPostsQuery = { __typename?: 'Query', getPosts: { __typename?: 'PostResponse', totalPageCount: number, posts: Array<{ __typename?: 'PostModel', id: string, title: string, category: string, contentPath: string, publishDate?: any | null }> } };
 
 
 export const GetPostsDocument = gql`
@@ -66,6 +66,7 @@ export const GetPostsDocument = gql`
       id
       title
       category
+      contentPath
       publishDate
     }
   }

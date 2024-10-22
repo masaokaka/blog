@@ -1,5 +1,6 @@
 import { urqlClient } from '@/lib/urql';
 import BlogPage from '@/src/components/pages/Blog';
+import { postsPerPage } from '@/src/const';
 import type {
   GetPostsQuery,
   GetPostsQueryVariables,
@@ -21,7 +22,9 @@ const Blog: NextPage<Props> = (props) => {
 
 export const getServerSideProps = (async (context) => {
   const { page } = context.query;
-  const { category } = context.params;
+  // paramsには必ず値が入るためasで型アサーションする
+  const { category } = context.params as { category: string };
+
   let currentPage = 1;
   if (page) {
     if (!Array.isArray(page) && isPositiveInteger(page)) {
@@ -36,12 +39,12 @@ export const getServerSideProps = (async (context) => {
       };
     }
   }
-  const postsPerPage = 12;
   try {
     const client = await urqlClient();
     const result = await client
       .query<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, {
-        // category: "article",
+        // 全記事一覧画面の場合はcategoryを送信しない。
+        category: category === 'all' ? undefined : category,
         page: currentPage,
         postsPerPage,
       })
