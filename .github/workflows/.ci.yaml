@@ -8,6 +8,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
+      - run: cd ./frontend
       - run: npm install && npm install -g @lhci/cli@0.14.x
       - run: npm run build
       - run: lhci autorun
