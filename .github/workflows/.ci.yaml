@@ -9,7 +9,17 @@ jobs:
         with:
           node-version: 20
       - run: |
+          # フロントエンドのセットアップ
           cd ./frontend
-          npm install && npm install -g @lhci/cli@0.14.x
+          npm install
+          npm install -g @lhci/cli@0.14.x
           npm run build
+      - run: |
+          # バックエンドのセットアップとサーバー起動
+          cd ../backend
+          npm install
+          npm start &
+      - run: |
+          # Lighthouse CI の実行
+          cd ../frontend
           lhci autorun
