@@ -1,0 +1,39 @@
+name: blog
+volumes:
+  db:
+services:
+  db:
+    image: postgres:16
+    container_name: db
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+  backend:
+    container_name: backend
+    build: ./backend
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://root:password@localhost:5432/blog_db?schema=public
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./backend:/app
+    command: npm run start:dev
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend:/app
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:4000
+    command: npm run dev

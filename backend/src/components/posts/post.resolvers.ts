@@ -1,21 +1,40 @@
-import { Query, Resolver } from '@nestjs/graphql';
-import { PostModel } from './interfaces/post.model';
+import { GetPostsArgs } from '@blog-components/posts/interfaces/get-post-connection.args';
+import { PostResponse } from '@blog-components/posts/interfaces/post.model';
+import { Args, Query, Resolver } from '@nestjs/graphql';
+import { PrismaService } from 'nestjs-prisma';
 
-@Resolver(() => PostModel)
-export class PostsResolver {
-  constructor() {}
+@Resolver((_of: any) => PostResponse)
+export class PostResolver {
+  constructor(
+    // private configService: ConfigService,
+    // private readonly blogEnv: BlogEnv,
+    private readonly prisma: PrismaService,
+  ) {}
 
-  @Query(() => [PostModel], { name: 'posts', nullable: true })
-  async getPosts() {
-    return [
-      {
-        id: '1',
-        title: 'NestJS is so good.',
-      },
-      {
-        id: '2',
-        title: 'GraphQL is so good.',
-      },
-    ];
+  @Query(() => PostResponse, { name: 'getPosts' })
+  async getPosts(@Args() args: GetPostsArgs) {
+    const data = await this.prisma.$transaction([
+      this.prisma.post.findMany({
+        where: {
+          category: args.category ? { in: args.category } : undefined,
+          published: true,
+        },
+        orderBy: {
+          publishDate: 'desc',
+        },
+        skip: (args.page - 1) * args.postsPerPage,
+        take: args.postsPerPage,
+      }),
+      this.prisma.post.count({
+        where: {
+          category: args.category ? { in: args.category } : undefined,
+          published: true,
+        },
+      }),
+    ]);
+    return {
+      posts: data[0],
+      totalPageCount: Math.ceil(data[1] / args.postsPerPage),
+    };
   }
 }

@@ -1,50 +1,34 @@
 import { urqlClient } from '@/lib/urql';
+import type { PostModel } from '@/src/graphql/generated/types';
+import { PostIndexPageDocument } from '@/src/graphql/generated/types';
 import type { GetStaticProps, NextPage } from 'next';
-// import { Inter } from 'next/font/google';
-import { gql } from 'urql';
-
-// const inter = Inter({ subsets: ['latin'] });
 
 type Props = {
-  posts: { id: string; title: string }[];
+  posts: PostModel[];
 };
 
-export const Home: NextPage<Props> = ({ posts }) => {
-  return (
-    <main>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            id: {post.id} title: {post.title}
-          </li>
-        ))}
-      </ul>
-    </main>
-  );
+const Home: NextPage<Props> = ({ posts }) => {
+  return <h2>トップページ</h2>;
 };
 
 export const getStaticProps = (async () => {
   try {
     const client = await urqlClient();
-    const POSTS_QUERY = gql`
-      query Example {
-        posts {
-          id
-          title
-        }
-      }
-    `;
-    const result = await client.query(POSTS_QUERY, {}).toPromise();
+    const result = await client
+      .query(PostIndexPageDocument, {
+        type: 'article',
+      })
+      .toPromise();
     return {
       props: {
-        posts: result.data.posts,
+        posts: result.data?.posts,
       },
     };
   } catch (e) {
-    console.log(e);
-    return {
-      notFound: true,
-    };
+    if (e instanceof Error) {
+      return { props: { error: e.message } };
+    }
+    throw e;
   }
 }) satisfies GetStaticProps;
 
