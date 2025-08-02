@@ -1,5 +1,7 @@
 # Blog
 
+## 使用技術
+
 ### Frontend
 
 - Next.js(pages router)
@@ -17,5 +19,9 @@
 
 ### Other
 
-- Node.js v20.14.0(npm v10.7.0)
-- nvm v0.39.7
+- Docker
+
+### 開発環境
+
+開発サーバー起動
+docker compose up -d
