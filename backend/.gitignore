@@ -52,3 +52,7 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 .env
+
+# Prisma
+prisma/migrations/*
+!prisma/migrations/migration_lock.toml

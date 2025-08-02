@@ -24,7 +24,7 @@ export class EnvValidator {
   NODE_ENV: NodeEnvEnum;
 
   @IsNumber()
-  PORT: number = 8080;
+  PORT: number = 4000;
 
   @IsNotEmpty()
   @IsString()

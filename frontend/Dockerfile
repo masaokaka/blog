@@ -1,5 +1,5 @@
 # Node.js公式イメージを使用
-FROM node:24-alpine
+FROM node:22-alpine3.22
 
 # 作業ディレクトリ作成
 WORKDIR /app

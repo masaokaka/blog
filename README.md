@@ -20,6 +20,7 @@
 ### Other
 
 - Docker
+  - node.js v22
 
 ### 開発環境
 

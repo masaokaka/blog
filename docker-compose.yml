@@ -18,7 +18,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgresql://root:password@localhost:5432/db
+      DATABASE_URL: postgresql://root:password@localhost:5432/blog_db?schema=public
     ports:
       - '4000:4000'
     volumes:

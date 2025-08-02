@@ -32,12 +32,16 @@ $ npm run test:cov
 
 ### migration
 
-npx prisma migrate dev --name init
+`npx prisma migrate dev --name init`
 
-### seed
+#### スキーマ変更
 
-npx prisma db seed
+`npx prisma generate`
+
+#### データのシード
+
+`npx prisma db seed`
 
 ### log into DB(in container)
 
-psql -h localhost -p 5432 -U root -d blog_db_dev
+`psql -h localhost -p 5432 -U root -d blog_db`
