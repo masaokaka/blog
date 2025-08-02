@@ -6,18 +6,19 @@ services:
     image: postgres:16
     container_name: db
     volumes:
-      - db:/var/lib/postgresql/blog_db_dev/data
+      - db:/var/lib/postgresql/data
     ports:
       - '5432:5432'
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
   backend:
+    container_name: backend
     build: ./backend
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://user:password@db:5432/appdb
+      DATABASE_URL: postgresql://root:password@localhost:5432/db
     ports:
       - '4000:4000'
     volumes:
@@ -25,6 +26,7 @@ services:
     command: npm run start:dev
 
   frontend:
+    container_name: frontend
     build: ./frontend
     depends_on:
       - backend
