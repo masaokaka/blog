@@ -44,8 +44,8 @@ export type Query = {
 
 export type QueryGetPostsArgs = {
   category?: InputMaybe<Array<Scalars['String']['input']>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-  postsPerPage?: InputMaybe<Scalars['Int']['input']>;
+  page?: Scalars['Int']['input'];
+  postsPerPage?: Scalars['Int']['input'];
 };
 
 export type GetPostsQueryVariables = Exact<{
@@ -59,7 +59,7 @@ export type GetPostsQuery = { __typename?: 'Query', getPosts: { __typename?: 'Po
 
 
 export const GetPostsDocument = gql`
-    query GetPosts($category: [String!], $page: Int, $postsPerPage: Int) {
+    query getPosts($category: [String!], $page: Int, $postsPerPage: Int) {
   getPosts(category: $category, page: $page, postsPerPage: $postsPerPage) {
     totalPageCount
     posts {

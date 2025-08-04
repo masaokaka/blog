@@ -5,9 +5,9 @@ export class GetPostsArgs {
   @Field(() => [String], { nullable: true })
   category?: string[];
 
-  @Field(() => Int, { nullable: true })
+  @Field(() => Int, { nullable: true, defaultValue: 9 })
   postsPerPage: number;
 
-  @Field(() => Int, { nullable: true })
+  @Field(() => Int, { nullable: true, defaultValue: 1 })
   page: number;
 }
