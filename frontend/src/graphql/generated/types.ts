@@ -44,8 +44,8 @@ export type Query = {
 
 export type QueryGetPostsArgs = {
   category?: InputMaybe<Array<Scalars['String']['input']>>;
-  page?: Scalars['Int']['input'];
-  postsPerPage?: Scalars['Int']['input'];
+  page?: InputMaybe<Scalars['Int']['input']>;
+  postsPerPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type GetPostsQueryVariables = Exact<{
