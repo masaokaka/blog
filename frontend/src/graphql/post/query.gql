@@ -1,0 +1,12 @@
+query getPosts($category: [String!], $page: Int, $postsPerPage: Int) {
+  getPosts(category: $category, page: $page, postsPerPage: $postsPerPage) {
+    totalPageCount
+    posts {
+      id
+      title
+      category
+      contentPath
+      publishDate
+    }
+  }
+}

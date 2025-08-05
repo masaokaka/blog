@@ -1,51 +1,50 @@
 import { urqlClient } from '@/lib/urql';
-import type { GetStaticProps, NextPage } from 'next';
-// import { Inter } from 'next/font/google';
-import { gql } from 'urql';
-
-// const inter = Inter({ subsets: ['latin'] });
+import type { PostModel } from '@/src/graphql/generated/types';
+import { GetPostsDocument } from '@/src/graphql/generated/types';
+import type { GetServerSideProps, NextPage } from 'next';
 
 type Props = {
-  posts: { id: string; title: string }[];
+  posts: PostModel[];
+  totalPageCount: number;
 };
 
-export const Home: NextPage<Props> = ({ posts }) => {
+const Home: NextPage<Props> = ({ posts, totalPageCount }) => {
+  console.log('Posts fetched:', posts.length);
   return (
-    <main>
+    <>
+      <h2>トップページ</h2>
+      <div>{totalPageCount}件</div>
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
-            id: {post.id} title: {post.title}
+            <a href={`/posts/${post.id}`}>{post.title}</a>
           </li>
         ))}
       </ul>
-    </main>
+    </>
   );
 };
 
-export const getStaticProps = (async () => {
+export const getServerSideProps = (async () => {
   try {
     const client = await urqlClient();
-    const POSTS_QUERY = gql`
-      query Example {
-        posts {
-          id
-          title
-        }
-      }
-    `;
-    const result = await client.query(POSTS_QUERY, {}).toPromise();
+    const result = await client.query(GetPostsDocument, {
+      category: 'all',
+    });
+    const { totalPageCount, posts } = result.data.getPosts;
+    console.log('Posts fetched:', posts.length);
     return {
       props: {
-        posts: result.data.posts,
+        posts,
+        totalPageCount,
       },
     };
   } catch (e) {
-    console.log(e);
-    return {
-      notFound: true,
-    };
+    if (e instanceof Error) {
+      return { props: { error: e.message } };
+    }
+    throw e;
   }
-}) satisfies GetStaticProps;
+}) satisfies GetServerSideProps;
 
 export default Home;

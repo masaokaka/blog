@@ -1,0 +1,26 @@
+name: CI
+on: [pull_request]
+jobs:
+  lighthouseci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - run: |
+          # フロントエンドのセットアップ
+          cd ./frontend
+          npm install
+          npm install -g @lhci/cli@0.14.x
+          npm run build
+      - run: |
+          # バックエンドのセットアップとサーバー起動
+          cd ./backend
+          npm install
+          npm run build
+          npm run start
+      - run: |
+          # Lighthouse CI の実行
+          cd ./frontend
+          lhci autorun

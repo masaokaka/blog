@@ -1,5 +1,7 @@
 # Blog
 
+## 使用技術
+
 ### Frontend
 
 - Next.js(pages router)
@@ -9,7 +11,18 @@
 
 - NestJS
 - GraphQL
+- Prisma
+
+### DB
+
+- PostgreSQL
 
 ### Other
 
-- Node.js v20.11.1
+- Docker
+  - node.js v22
+
+### 開発環境
+
+開発サーバー起動
+docker compose up -d

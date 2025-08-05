@@ -1,0 +1,35 @@
+name: Dependabot Auto-merge Patch Updates
+on:
+  pull_request_target:
+    types:
+      - opened # 作成
+      - synchronize # 更新
+      - reopened # 再オープン
+
+jobs:
+  dependabot-auto-merge:
+    runs-on: ubuntu-latest
+    # DependabotからのPRのみを対象にする
+    if: github.actor == 'dependabot[bot]'
+    permissions:
+      pull-requests: write
+      contents: write
+
+    steps:
+      # Dependabotのメタデータを取得するアクション
+      - name: Fetch Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v2.2.0
+        with:
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
+      - name: Debug update-type
+        run: echo ${{ steps.dependabot-metadata.outputs.update-type }}
+      # 取得したメタデータに基づき、パッチ更新の場合のみ自動マージを実行
+      - name: Auto-merge for patch updates
+        if: steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --merge --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
