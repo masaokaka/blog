@@ -25,5 +25,5 @@ type PostResponse {
 }
 
 type Query {
-  getPosts(category: [String!], page: Int, postsPerPage: Int): PostResponse!
+  getPosts(category: [String!], page: Int = 1, postsPerPage: Int = 9): PostResponse!
 }

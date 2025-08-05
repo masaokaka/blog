@@ -1,4 +1,4 @@
-query GetPosts($category: [String!], $page: Int, $postsPerPage: Int) {
+query getPosts($category: [String!], $page: Int, $postsPerPage: Int) {
   getPosts(category: $category, page: $page, postsPerPage: $postsPerPage) {
     totalPageCount
     posts {

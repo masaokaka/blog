@@ -25,9 +25,20 @@ model Post {
   published    Boolean?  @default(false)
   publishDate  DateTime? @map("publish_date")
   like         Int       @default(0)
+  tags         Tag[]     @relation("PostTags")
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt @map("updated_at")
 
   @@index([contentPath])
   @@map("posts")
+}
+
+model Tag{
+  id        String   @id @default(uuid())
+  name      String   @unique
+  posts     Post[]   @relation("PostTags")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tags")
 }
