@@ -16,10 +16,11 @@ jobs:
           npm run build
       - run: |
           # バックエンドのセットアップとサーバー起動
-          cd ../backend
+          cd ./backend
           npm install
-          npm start &
+          npm run build
+          npm run start
       - run: |
           # Lighthouse CI の実行
-          cd ../frontend
+          cd ./frontend
           lhci autorun
