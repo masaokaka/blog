@@ -23,17 +23,7 @@ const BlogPage = ({ posts, currentPage, totalPageCount }: Props) => {
               title={post.title}
               category={post.category.toUpperCase()}
               datetime={post.publishDate.split('T')[0].replaceAll('-', '.')}
-              tags={[
-                'travel',
-                'fun',
-                'blog',
-                'travel',
-                'fun',
-                'blog',
-                'travel',
-                'fun',
-                'blog',
-              ]}
+              tags={['travel', 'fun', 'blog']}
             />
           </li>
         ))}

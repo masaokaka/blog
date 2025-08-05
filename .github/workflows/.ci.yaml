@@ -14,12 +14,19 @@ jobs:
           npm install
           npm install -g @lhci/cli@0.14.x
           npm run build
+          npm run start &
+      - run: npm install -g wait-on
+      - run: wait-on http://localhost:3000
+
       - run: |
           # バックエンドのセットアップとサーバー起動
-          cd ../backend
+          cd ./backend
           npm install
-          npm start &
+          npm run build
+          npm run start &
+      - run: npm install -g wait-on
+      - run: wait-on http://localhost:4000
       - run: |
           # Lighthouse CI の実行
-          cd ../frontend
+          cd ./frontend
           lhci autorun
