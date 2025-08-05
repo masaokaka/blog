@@ -5,7 +5,8 @@ on:
       - opened # 作成
       - synchronize # 更新
       - reopened # 再オープン
-
+  # 手動トリガー可能とする
+  workflow_dispatch:
 jobs:
   dependabot-auto-merge:
     runs-on: ubuntu-latest
