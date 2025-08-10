@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { postData } from 'prisma/posts.seed';
-import { tagData } from 'prisma/tags.seed';
+import { postData } from './posts.seed';
+import { tagData } from './tags.seed';
 const prisma = new PrismaClient();
 
 const doSeed = async () => {
