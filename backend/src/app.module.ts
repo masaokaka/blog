@@ -1,3 +1,4 @@
+import { UserModule } from '@blog-components/user/user.module';
 import { BlogEnv } from '@blog-config/environments/blog-env.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
@@ -18,6 +19,7 @@ import { PostModule } from './components/posts/post.module';
       isGlobal: true,
     }),
     PostModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
