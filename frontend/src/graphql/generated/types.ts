@@ -30,6 +30,11 @@ export type Scalars = {
   DateTime: { input: any; output: any };
 };
 
+export type GetUserResponse = {
+  __typename?: 'GetUserResponse';
+  user: UserModel;
+};
+
 export type PostModel = {
   __typename?: 'PostModel';
   category: Scalars['String']['output'];
@@ -52,12 +57,26 @@ export type PostResponse = {
 export type Query = {
   __typename?: 'Query';
   getPosts: PostResponse;
+  getUser: GetUserResponse;
 };
 
 export type QueryGetPostsArgs = {
   category?: InputMaybe<Array<Scalars['String']['input']>>;
   page?: InputMaybe<Scalars['Int']['input']>;
   postsPerPage?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type QueryGetUserArgs = {
+  githubId: Scalars['String']['input'];
+};
+
+export type UserModel = {
+  __typename?: 'UserModel';
+  email: Scalars['String']['output'];
+  githubId: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  role: Scalars['String']['output'];
 };
 
 export type GetPostsQueryVariables = Exact<{
@@ -84,6 +103,25 @@ export type GetPostsQuery = {
   };
 };
 
+export type GetUserQueryVariables = Exact<{
+  githubId: Scalars['String']['input'];
+}>;
+
+export type GetUserQuery = {
+  __typename?: 'Query';
+  getUser: {
+    __typename?: 'GetUserResponse';
+    user: {
+      __typename?: 'UserModel';
+      id: string;
+      githubId: string;
+      name: string;
+      email: string;
+      role: string;
+    };
+  };
+};
+
 export const GetPostsDocument = gql`
   query getPosts($category: [String!], $page: Int, $postsPerPage: Int) {
     getPosts(category: $category, page: $page, postsPerPage: $postsPerPage) {
@@ -94,6 +132,19 @@ export const GetPostsDocument = gql`
         category
         contentPath
         publishDate
+      }
+    }
+  }
+`;
+export const GetUserDocument = gql`
+  query getUser($githubId: String!) {
+    getUser(githubId: $githubId) {
+      user {
+        id
+        githubId
+        name
+        email
+        role
       }
     }
   }
