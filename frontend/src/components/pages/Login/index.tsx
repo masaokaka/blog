@@ -3,9 +3,9 @@ import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 const LoginPage = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
-  if (session) {
+  if (status === 'authenticated' && session) {
     router.push('/admin');
     return null;
   }
@@ -24,6 +24,7 @@ const LoginPage = () => {
           className="rounded bg-black p-2 text-white"
           isLink={false}
           onClick={handleLogin}
+          disabled={status === 'loading'}
         >
           Sign In with Github
         </UIButton>
