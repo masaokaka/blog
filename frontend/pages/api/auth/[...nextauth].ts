@@ -11,7 +11,7 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
   ],
-  session: { strategy: 'jwt' },
+  session: { strategy: 'jwt', maxAge: 7 * 24 * 60 * 60 },
   secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
     async signIn({ account }) {
