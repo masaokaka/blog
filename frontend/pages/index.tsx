@@ -1,5 +1,9 @@
 import { urqlClient } from '@/lib/urql';
-import type { PostModel } from '@/src/graphql/generated/types';
+import type {
+  GetPostsQuery,
+  GetPostsQueryVariables,
+  PostModel,
+} from '@/src/graphql/generated/types';
 import { GetPostsDocument } from '@/src/graphql/generated/types';
 import type { GetServerSideProps, NextPage } from 'next';
 
@@ -28,10 +32,21 @@ const Home: NextPage<Props> = ({ posts, totalPageCount }) => {
 export const getServerSideProps = (async () => {
   try {
     const client = await urqlClient();
-    const result = await client.query(GetPostsDocument, {
-      category: 'all',
+    const { data, error } = await client.query<
+      GetPostsQuery,
+      GetPostsQueryVariables
+    >(GetPostsDocument, {
+      category: null,
+      page: 1,
+      postsPerPage: 100,
     });
-    const { totalPageCount, posts } = result.data.getPosts;
+    if (!data || error) {
+      console.error('Error fetching posts:', error);
+      return {
+        notFound: true,
+      };
+    }
+    const { totalPageCount, posts } = data.getPosts;
     console.log('Posts fetched:', posts.length);
     return {
       props: {

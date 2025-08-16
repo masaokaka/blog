@@ -7,6 +7,10 @@ query getPosts($category: [String!], $page: Int, $postsPerPage: Int) {
       category
       contentPath
       publishDate
+      tags {
+        id
+        name
+      }
     }
   }
 }
