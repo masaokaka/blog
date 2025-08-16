@@ -5,18 +5,17 @@ on:
       - opened # 作成
       - synchronize # 更新
       - reopened # 再オープン
-
+  # 手動トリガー可能とする
+  workflow_dispatch:
 jobs:
   dependabot-auto-merge:
-    runs-on: ubuntu-latest
-    # DependabotからのPRのみを対象にする
     if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
     permissions:
       pull-requests: write
       contents: write
 
     steps:
-      # Dependabotのメタデータを取得するアクション
       - name: Fetch Dependabot metadata
         id: dependabot-metadata
         uses: dependabot/fetch-metadata@v2.2.0
@@ -24,9 +23,8 @@ jobs:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
       - name: Debug update-type
         run: echo ${{ steps.dependabot-metadata.outputs.update-type }}
-      # 取得したメタデータに基づき、パッチ更新の場合のみ自動マージを実行
       - name: Auto-merge for patch updates
-        if: steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'
+        if: github.actor == 'dependabot[bot]' && steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'
         run: |
           gh pr review --approve "$PR_URL"
           gh pr merge --merge --squash "$PR_URL"
