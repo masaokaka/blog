@@ -1,11 +1,11 @@
-import { PrismaService } from 'nestjs-prisma';
+import { TagService } from '@blog-components/tags/tag.service';
 
 // @Resolver((_of: any) => TagResponse)
 export class TagResolver {
   constructor(
     // private configService: ConfigService,
     // private readonly blogEnv: BlogEnv,
-    private readonly prisma: PrismaService,
+    private readonly tagService: TagService,
   ) {}
 
   // @Query(() => PostResponse, { name: 'getPosts' })

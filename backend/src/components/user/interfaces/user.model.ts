@@ -20,6 +20,6 @@ export class UserModel {
 
 @ObjectType()
 export class GetUserResponse {
-  @Field(() => UserModel)
-  user: UserModel;
+  @Field(() => UserModel, { nullable: true })
+  user: UserModel | null;
 }

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PostResolver } from './post.resolvers';
+import { PostResolver } from './post.resolver';
 
 @Module({
   providers: [PostResolver],

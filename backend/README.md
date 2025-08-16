@@ -30,6 +30,10 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+### Prisma Clientの生成
+
+`npx prisma generate`
+
 ### migration
 
 `npx prisma migrate dev --name init`
