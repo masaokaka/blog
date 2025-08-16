@@ -1,3 +1,4 @@
+import { TagModule } from '@blog-components/tags/tag.module';
 import { UserModule } from '@blog-components/user/user.module';
 import { BlogEnv } from '@blog-config/environments/blog-env.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -20,6 +21,7 @@ import { PostModule } from './components/posts/post.module';
     }),
     PostModule,
     UserModule,
+    TagModule,
   ],
   controllers: [],
   providers: [],

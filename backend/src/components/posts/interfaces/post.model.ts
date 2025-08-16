@@ -1,3 +1,4 @@
+import { TagModel } from '@blog-components/tags/interface/tag.model';
 import {
   Field,
   GraphQLISODateTime,
@@ -19,6 +20,9 @@ export class PostModel {
 
   @Field(() => String)
   category: string;
+
+  @Field(() => [TagModel])
+  tags: [TagModel];
 
   @Field(() => String, { nullable: true })
   thumbNailUrl: string;

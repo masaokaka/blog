@@ -28,9 +28,7 @@ const Home: NextPage<Props> = ({ posts, totalPageCount }) => {
 export const getServerSideProps = (async () => {
   try {
     const client = await urqlClient();
-    const result = await client.query(GetPostsDocument, {
-      category: 'all',
-    });
+    const result = await client.query(GetPostsDocument, {});
     const { totalPageCount, posts } = result.data.getPosts;
     console.log('Posts fetched:', posts.length);
     return {

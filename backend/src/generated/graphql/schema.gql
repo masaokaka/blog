@@ -19,6 +19,7 @@ type PostModel {
   id: ID!
   publishDate: DateTime
   published: Boolean
+  tags: [TagModel!]!
   thumbNailUrl: String
   title: String!
 }
@@ -31,6 +32,11 @@ type PostResponse {
 type Query {
   getPosts(category: [String!], page: Int = 1, postsPerPage: Int = 9): PostResponse!
   getUser(githubId: String!): GetUserResponse!
+}
+
+type TagModel {
+  id: ID!
+  name: String!
 }
 
 type UserModel {

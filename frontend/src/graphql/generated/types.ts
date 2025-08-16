@@ -44,6 +44,7 @@ export type PostModel = {
   id: Scalars['ID']['output'];
   publishDate?: Maybe<Scalars['DateTime']['output']>;
   published?: Maybe<Scalars['Boolean']['output']>;
+  tags: Array<TagModel>;
   thumbNailUrl?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
 };
@@ -68,6 +69,12 @@ export type QueryGetPostsArgs = {
 
 export type QueryGetUserArgs = {
   githubId: Scalars['String']['input'];
+};
+
+export type TagModel = {
+  __typename?: 'TagModel';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type UserModel = {
@@ -99,6 +106,7 @@ export type GetPostsQuery = {
       category: string;
       contentPath: string;
       publishDate?: any | null;
+      tags: Array<{ __typename?: 'TagModel'; id: string; name: string }>;
     }>;
   };
 };
@@ -132,6 +140,10 @@ export const GetPostsDocument = gql`
         category
         contentPath
         publishDate
+        tags {
+          id
+          name
+        }
       }
     }
   }
