@@ -32,7 +32,7 @@ export type Scalars = {
 
 export type GetUserResponse = {
   __typename?: 'GetUserResponse';
-  user: UserModel;
+  user?: Maybe<UserModel>;
 };
 
 export type PostModel = {
@@ -119,14 +119,14 @@ export type GetUserQuery = {
   __typename?: 'Query';
   getUser: {
     __typename?: 'GetUserResponse';
-    user: {
+    user?: {
       __typename?: 'UserModel';
       id: string;
       githubId: string;
       name: string;
       email: string;
       role: string;
-    };
+    } | null;
   };
 };
 

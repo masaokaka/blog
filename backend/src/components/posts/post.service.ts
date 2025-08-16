@@ -1,13 +1,12 @@
 import { GetPostsArgs } from '@blog-components/posts/interfaces/get-post-connection.args';
 import { PostResponse } from '@blog-components/posts/interfaces/post.model';
 import { Injectable } from '@nestjs/common';
-import { Args } from '@nestjs/graphql';
 import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class PostService {
   constructor(private readonly prisma: PrismaService) {}
-  async getPosts(@Args() args: GetPostsArgs): Promise<PostResponse> {
+  async getPosts(args: GetPostsArgs): Promise<PostResponse> {
     const [posts, totalCount] = await this.prisma.$transaction([
       this.prisma.post.findMany({
         where: {
