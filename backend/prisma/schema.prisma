@@ -42,3 +42,15 @@ model Tag{
 
   @@map("tags")
 }
+
+model User{
+  id        String   @id @default(uuid())
+  githubId  String   @unique @map("github_id")
+  name      String   
+  email     String   @unique
+  role      String   @default("user")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}

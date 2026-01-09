@@ -1,0 +1,11 @@
+query getUser($githubId: String!) {
+  getUser(githubId: $githubId) {
+    user {
+      id
+      githubId
+      name
+      email
+      role
+    }
+  }
+}
