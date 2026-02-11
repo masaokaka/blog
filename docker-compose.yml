@@ -19,8 +19,10 @@ services:
       - db
     ports:
       - '4000:4000'
+      - '5555:5555' # prisma studio
     volumes:
       - ./backend:/app
+      - /backend/node_modules
     command: npm run start:dev
 
   frontend:
@@ -32,6 +34,7 @@ services:
       - '3000:3000'
     volumes:
       - ./frontend:/app
+      - /frontend/node_modules
     environment:
       NEXT_PUBLIC_API_URL: http://backend:4000
     command: npm run dev

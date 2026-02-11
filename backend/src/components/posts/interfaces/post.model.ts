@@ -1,3 +1,4 @@
+import { TagModel } from '@blog-components/tags/interface/tag.model';
 import {
   Field,
   GraphQLISODateTime,
@@ -15,25 +16,28 @@ export class PostModel {
   title: string;
 
   @Field(() => String, { nullable: true })
-  emoji?: string;
+  emoji: string | null;
 
   @Field(() => String)
   category: string;
 
-  @Field(() => String, { nullable: true })
-  thumbNailUrl: string;
+  @Field(() => [TagModel])
+  tags: TagModel[];
 
   @Field(() => String, { nullable: true })
-  excerpt?: string;
+  thumbNailUrl: string | null;
+
+  @Field(() => String, { nullable: true })
+  excerpt: string | null;
 
   @Field(() => String)
   contentPath: string;
 
   @Field(() => Boolean, { nullable: true })
-  published: boolean;
+  published: boolean | null;
 
   @Field(() => GraphQLISODateTime, { nullable: true })
-  publishDate?: Date;
+  publishDate: Date | null;
 }
 
 @ObjectType()
@@ -41,5 +45,5 @@ export class PostResponse {
   @Field(() => Int)
   totalPageCount: number;
   @Field(() => [PostModel])
-  posts: [PostModel];
+  posts: PostModel[];
 }

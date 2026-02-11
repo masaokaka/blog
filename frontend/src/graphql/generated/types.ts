@@ -30,6 +30,11 @@ export type Scalars = {
   DateTime: { input: any; output: any };
 };
 
+export type GetUserResponse = {
+  __typename?: 'GetUserResponse';
+  user?: Maybe<UserModel>;
+};
+
 export type PostModel = {
   __typename?: 'PostModel';
   category: Scalars['String']['output'];
@@ -39,6 +44,7 @@ export type PostModel = {
   id: Scalars['ID']['output'];
   publishDate?: Maybe<Scalars['DateTime']['output']>;
   published?: Maybe<Scalars['Boolean']['output']>;
+  tags: Array<TagModel>;
   thumbNailUrl?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
 };
@@ -52,12 +58,32 @@ export type PostResponse = {
 export type Query = {
   __typename?: 'Query';
   getPosts: PostResponse;
+  getUser: GetUserResponse;
 };
 
 export type QueryGetPostsArgs = {
   category?: InputMaybe<Array<Scalars['String']['input']>>;
   page?: InputMaybe<Scalars['Int']['input']>;
   postsPerPage?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type QueryGetUserArgs = {
+  githubId: Scalars['String']['input'];
+};
+
+export type TagModel = {
+  __typename?: 'TagModel';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type UserModel = {
+  __typename?: 'UserModel';
+  email: Scalars['String']['output'];
+  githubId: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  role: Scalars['String']['output'];
 };
 
 export type GetPostsQueryVariables = Exact<{
@@ -80,7 +106,27 @@ export type GetPostsQuery = {
       category: string;
       contentPath: string;
       publishDate?: any | null;
+      tags: Array<{ __typename?: 'TagModel'; id: string; name: string }>;
     }>;
+  };
+};
+
+export type GetUserQueryVariables = Exact<{
+  githubId: Scalars['String']['input'];
+}>;
+
+export type GetUserQuery = {
+  __typename?: 'Query';
+  getUser: {
+    __typename?: 'GetUserResponse';
+    user?: {
+      __typename?: 'UserModel';
+      id: string;
+      githubId: string;
+      name: string;
+      email: string;
+      role: string;
+    } | null;
   };
 };
 
@@ -94,6 +140,23 @@ export const GetPostsDocument = gql`
         category
         contentPath
         publishDate
+        tags {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+export const GetUserDocument = gql`
+  query getUser($githubId: String!) {
+    getUser(githubId: $githubId) {
+      user {
+        id
+        githubId
+        name
+        email
+        role
       }
     }
   }
