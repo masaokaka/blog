@@ -1,3 +1,4 @@
+import { UIButton } from '@/src/components/uiParts/UIButton';
 import { UIPopover } from '@/src/components/uiParts/UIPopover';
 import {
   Button,
@@ -6,8 +7,14 @@ import {
   DisclosurePanel,
 } from '@headlessui/react';
 import { Bars2Icon } from '@heroicons/react/16/solid';
-import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import {
+  ArrowLeftStartOnRectangleIcon,
+  MinusIcon,
+  PlusIcon,
+  XMarkIcon,
+} from '@heroicons/react/20/solid';
 import clsx from 'clsx';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -18,6 +25,11 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const handleMenuClose = () => setMenuOpen(false);
   const handleMenuOpen = () => setMenuOpen(true);
+  const { status } = useSession();
+  const handleSignOut = () =>
+    signOut({
+      callbackUrl: '/login',
+    });
   return (
     <header className="flex h-[60px] items-center bg-white px-6 md:h-[100px] md:px-16">
       <Link href="/" className="mr-auto">
@@ -69,6 +81,13 @@ const Header = () => {
               </div>
             )}
           </li>
+          {status === 'authenticated' && (
+            <li className="relative ml-10">
+              <UIButton isLink={false} onClick={handleSignOut}>
+                <ArrowLeftStartOnRectangleIcon className="size-8 text-white" />
+              </UIButton>
+            </li>
+          )}
         </ul>
       </nav>
       {/* モバイルナビゲーション */}
@@ -172,6 +191,11 @@ const Header = () => {
                   Contact
                 </Link>
               </li>
+              {status === 'authenticated' && (
+                <li>
+                  <Button onClick={handleSignOut}>Sign Out</Button>
+                </li>
+              )}
             </ul>
           </nav>
         </div>

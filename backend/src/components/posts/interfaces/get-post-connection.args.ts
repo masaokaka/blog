@@ -3,7 +3,7 @@ import { ArgsType, Field, Int } from '@nestjs/graphql';
 @ArgsType()
 export class GetPostsArgs {
   @Field(() => [String], { nullable: true })
-  category?: string[];
+  category: string[] | null;
 
   @Field(() => Int, { nullable: true, defaultValue: 9 })
   postsPerPage: number;

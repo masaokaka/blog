@@ -9,6 +9,7 @@ type Props = {
 };
 
 const BlogPage = ({ posts, currentPage, totalPageCount }: Props) => {
+  console.log(posts);
   return (
     <div>
       <h2 className="px-4 text-xl font-semibold md:text-2xl">全ての記事</h2>
